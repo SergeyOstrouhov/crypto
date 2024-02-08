@@ -29,8 +29,6 @@ def crypt(text, mode, key):
         res = res[1:]
     return res
 
-
-
 mode = int(input("Выберите режим (1 - шифрование; 2 - расшифрование): "))
 type_text = int(input("Выберите с каким текстом вы будете пработать (0 - поговорка, 1 - текст > 1000 символов): "))
 big_alphabit = 'абвгдежзийклмнопрстуфхцчшщъыьэюя'
@@ -41,5 +39,8 @@ length_of_alph = len(big_alphabit)
 open_text = input("Введите текст для работы: ")
 
 key = input("Введите ключ (один символ): ")
+if len(key) > 1:
+    key = key[0]
+    print("В качестве ключа установлена буква "+ key)
 print('Результат: \n')
 print(crypt(open_text, mode, key))

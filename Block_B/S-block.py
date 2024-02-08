@@ -1,7 +1,10 @@
-alp = 'АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯфбвгджзийклмнопрстуфхцчшщъыьэюя ,.!?:1234567890-—;/()[]<>\'"' # для большого текста
+alp = 'АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯфбвгджзийклмнопрстуфхцчшщъыьэюя ,.!?:1234567890-—;/()[]<>\'"' 
 HEX = '0123456789abcdef'
 
-# это наши s блоки 8 штук
+abcd = {'0': 0, '1': 1, '2':2, '3':3, '4':4, '5':5,
+		'6':6, '7': 7, '8':8}
+
+# s блоки
 s_blocks = [
 	[12, 4,  6,  2,  10, 5,  11, 9,  14, 8,  13, 7,  0,  3,  15, 1],
 	[6,  8,  2,  3,  9,  10, 5,  12, 1,  14, 4,  7,  11, 13, 0,  15],
@@ -12,8 +15,8 @@ s_blocks = [
 	[8,  14, 2,  5,  6,  9,  1,  12, 15, 4,  11, 0,  13, 10, 3,  7],
 	[1,  7,  14, 13, 0,  5,  8,  3,  4,  15, 10, 6,  9,  12, 11, 2]]
 
-# s блок шифрование
-def s_block_encrypt(inp: str) -> str:
+# шифрование
+def encrypt(inp):
 	
 	# надо поделить 4 буквы по 8 индексов
 	i0 = (alp.index(inp[0]) & 0b11110000) >> 4;
@@ -28,14 +31,14 @@ def s_block_encrypt(inp: str) -> str:
 	i6 = (alp.index(inp[3]) & 0b11110000) >> 4;
 	i7 = (alp.index(inp[3]) & 0b00001111);
 
-	# подставление индексов в s блоки и получение результата 4 буквы
+	# подставление индексов в s блоки и получение результата
 	return HEX[s_blocks[0][i0]] + HEX[s_blocks[1][i1]] + \
 		HEX[s_blocks[2][i2]] + HEX[s_blocks[3][i3]] + \
 		HEX[s_blocks[4][i4]] + HEX[s_blocks[5][i5]] + \
 		HEX[s_blocks[6][i6]] + HEX[s_blocks[7][i7]]
 
-# s блок расшифрование
-def s_block_decrypt(inp: str) -> str:
+# расшифрование
+def decrypt(inp):
 		
 	# определяем индексы по значению из s блоков
 	i0 = s_blocks[0].index(HEX.index(inp[0]));
@@ -53,24 +56,26 @@ def s_block_decrypt(inp: str) -> str:
 	# складываем левые и правые 4 бит в байты и получаем букву в алфавите
 	return alp[(i0 << 4) | i1] + alp[(i2 << 4) | i3] + alp[(i4 << 4) | i5] + alp[(i6 << 4) | i7]
 
-def encrypt(text: str) -> str:
+def encrypt(text):
 	out = ""
 	l = len(text)
 	while l%4 != 0:
 		text += " "
 		l += 1
 	for i in range(l//4):
-		out += s_block_encrypt(text[i*4:i*4+4])
+		out += encrypt(text[i*4:i*4+4])
 	return out
 
-def decrypt(text: str) -> str:
+def decrypt(text):
 	out = ""
 	l = len(text)
 	for i in range(l//8):
-		out += s_block_decrypt(text[i*8:i*8+8])
+		out += decrypt(text[i*8:i*8+8])
 	while text[-1] == " ":
 		text = text[0:-1]
 	return out
+type_task = int(input("Выберите режим работы (1 - проверка по стандарту, 2 - шифрование текста на 1000 символов): "))
+if type_task == 1:
 
 text = input("Введите сообщение: ").upper()
 result = encrypt(text)
