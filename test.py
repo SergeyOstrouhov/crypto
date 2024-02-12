@@ -1,21 +1,22 @@
-def split_and_adjust(string):
-    substrings = []
-    i = 0
-    while i < len(string):
-        if i == len(string) - 1:
-            substrings.append([string[i], ""])  # Добавляем последний символ как подстроку
-            break
-        if string[i] == string[i+1]:  # Проверяем на повторение символов
-            substrings.append([string[i], "я"])  # Если повторяется, заменяем второй символ
-            i += 1  # Переходим к следующему символу
-        else:
-            substrings.append([string[i], string[i+1]])  # Если нет повторения, добавляем оба символа
-            i += 2  # Переходим к следующей паре символов
-    if substrings[-1][1] == "":
-        substrings[-1][1] = "ф"
-    return substrings
+# def split_and_adjust(string):
+#     substrings = []
+#     i = 0
+#     while i < len(string):
+#         if i == len(string) - 1:
+#             substrings.append([string[i], ""])  # Добавляем последний символ как подстроку
+#             break
+#         if string[i] == string[i+1]:  # Проверяем на повторение символов
+#             substrings.append([string[i], "я"])  # Если повторяется, заменяем второй символ
+#             i += 1  # Переходим к следующему символу
+#         else:
+#             substrings.append([string[i], string[i+1]])  # Если нет повторения, добавляем оба символа
+#             i += 2  # Переходим к следующей паре символов
+#     if substrings[-1][1] == "":
+#         substrings[-1][1] = "ф"
+#     return substrings
 
-# Пример использования:
-string = "неттакого"
-substrings = split_and_adjust(string)
-print(substrings)  # Выводим список подстрок
+# # Пример использования:
+# string = "неттакого"
+# substrings = split_and_adjust(string)
+# print(substrings)  # Выводим список подстрок
+a = '19012 22331 11861 78151 10320 11331 89283 22513 92711 61911 58119 10019 62112 08336 18118 23025 48814 81961 98351 14621 02842 20208 33223 92093 47277 20834 51133 66'
