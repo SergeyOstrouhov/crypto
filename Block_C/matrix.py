@@ -1,5 +1,7 @@
 import numpy as np
+
 def multi_matr(matr, vector):
+    #В случае, если последний блок не полный, заполняем нулями
     if len(vector) == 1:
         vector.append(0)
         vector.append(0)
@@ -32,11 +34,14 @@ def crypt(text,  matr):
     nums = []
 
     for i in text:
+        #Переводим буквы в их номера в алфавите
         nums.append(alp.index(i)+1)
     for i in range(0, len(text), size):
+        #Делим на блоки, равные по длине размеру матрицы
         blocks.append(nums[i:i+size])
     for i in blocks:
         new_vector = multi_matr(matr, i)
+        #получем новый вектор и добавляем его значения к результирующему массиву
         for j in new_vector:
             res.append(j)
             # print(j)
@@ -44,9 +49,9 @@ def crypt(text,  matr):
 
 def decrypt(text, matr):
     new_matr = inv_matr(matr)
-    res = []
+    res = [] #массив для хранения результата в виде чисел
     blocks = []
-    otv = ""
+    otv = "" #результат в виду символов
     for i in range(0, len(text), size):
         blocks.append(text[i:i+size])
     for i in blocks:

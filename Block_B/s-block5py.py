@@ -72,7 +72,7 @@ print([hex(byte) for byte in result4_inverse])
 
 print("-----------------------------------------------")
 
-alphabet_up = 'АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'
+alphabet_up = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ #!^*()?-–+.,:;абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
 def text_to_hex(text, alphabet):
     hex_representation = ""
     for char in text:
@@ -156,16 +156,16 @@ def hex_to_text(hex_data, alphabet):
 
 
 input_text = input("Открытый текст: ").upper()
-input_text = input_text.replace(".", "ТЧК")
-input_text = input_text.replace(",", "ЗПТ")
-input_text = input_text.replace(" ", "ПРБ")
+# input_text = input_text.replace(".", "ТЧК")
+# input_text = input_text.replace(",", "ЗПТ")
+# input_text = input_text.replace(" ", "ПРБ")
 input_text = input_text + "КНЦШФР"
 encrypted_text = encrypt_text(input_text)
 print("Зашифрованный текст: ", encrypted_text)
 
 decrypted_text = decrypt_text(encrypted_text)
-decrypted_text = decrypted_text.replace("ТЧК", ".")
-decrypted_text = decrypted_text.replace("ЗПТ", ",")
-decrypted_text = decrypted_text.replace("ПРБ", " ")
+# decrypted_text = decrypted_text.replace("ТЧК", ".")
+# decrypted_text = decrypted_text.replace("ЗПТ", ",")
+# decrypted_text = decrypted_text.replace("ПРБ", " ")
 decrypted_text = decrypted_text[:decrypted_text.find("КНЦШФР")]
 print("Расшифрованный текст: ", decrypted_text)

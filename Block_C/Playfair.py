@@ -19,24 +19,29 @@ def split_and_adjust(string):
 
 def crypt(text, mode, task, table):
     res = ''
+    #определяем размер таблицы
     if task == 1:
         size = 6
     elif task == 2:
         size = 9
+    #делим строку на пары
     open_text = split_and_adjust(text)
-    print(open_text)
+    # print(open_text)
     if mode == 1:
         for i in open_text:
             a = table.index(i[0])
             b = table.index(i[1])
             strokA, strokB = a//size, b//size
-            print(a, strokA, b, strokB)
+            # print(a, strokA, b, strokB)
+            #Случай, если буквы в одной строке
             if strokA == strokB:
                 res += table[(a+1)%size + size*strokA]
                 res += table[(b+1)%size + size*strokA]
+            #Если буквы в одном столбце
             elif a%size == b%size:
                 res += table[(a+size)%(len(table))]
                 res += table[(b+size)%(len(table))]
+            #Если буквы в разных строках и разных столбцах
             else:
                 str_a, col_a = strokA, a%size
                 str_b, col_b = strokB, b%size
@@ -47,18 +52,28 @@ def crypt(text, mode, task, table):
             a = table.index(i[0])
             b = table.index(i[1])
             strokA, strokB = a//size, b//size
-            print(a, strokA, b, strokB)
+            # print(a, strokA, b, strokB)
+            #Случай, если буквы в одной строке
             if strokA == strokB:
                 res += table[(a-1)%size + size*strokA]
                 res += table[(b-1)%size + size*strokA]
+            #Если буквы в одном столбце
             elif a%size == b%size:
                 res += table[(a-size)%(len(table))]
                 res += table[(b-size)%(len(table))]
+            #Если буквы в разных строках и разных столбцах
             else:
                 str_a, col_a = strokA, a%size
                 str_b, col_b = strokB, b%size
                 res += table[str_a*size + col_b]
                 res += table[str_b*size + col_a]
+        i = 1
+    while i < len(res) - 1:
+        if res[i-1] == res[i+1] and res[i] == 'Ф':
+            res = res[:i] + res[i+1:]
+        else:
+            i += 1
+    res = res[:-1]
     return res
 
 
@@ -69,6 +84,12 @@ if task == 1:
 elif task == 2:
     big_alphabit = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ #!^*()?-–+.,:;абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
 key = input("Введите ключ:")
+#Проверка ключа
+while True:
+    if len(set(key)) == len(list(key)):
+        break
+    else:
+        key = input("Введите в качестве ключа слово, в котором каждая буква встречается 1 раз: ")
 table = []
 
  
@@ -85,5 +106,5 @@ for i  in big_alphabit:
     if i not in key:
         table.append(i)
 
-print(table)
+# print(table)
 print(crypt(open_text, mode, task, table))
