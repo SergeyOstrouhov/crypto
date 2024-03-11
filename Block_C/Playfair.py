@@ -14,7 +14,7 @@ def split_and_adjust(string):
             substrings.append([string[i], string[i+1]])  # Если нет повторения, добавляем оба символа
             i += 2  # Переходим к следующей паре символов
     if substrings[-1][1] == "":
-        substrings[-1][1] = "Ф"
+        substrings[-1][1] = "Я"
     return substrings
 
 def crypt(text, mode, task, table):
@@ -68,12 +68,12 @@ def crypt(text, mode, task, table):
                 res += table[str_a*size + col_b]
                 res += table[str_b*size + col_a]
         i = 1
-    while i < len(res) - 1:
-        if res[i-1] == res[i+1] and res[i] == 'Ф':
-            res = res[:i] + res[i+1:]
-        else:
-            i += 1
-    res = res[:-1]
+        while i < len(res) - 1:
+            if res[i-1] == res[i+1] and res[i] == 'Ф':
+                res = res[:i] + res[i+1:]
+            else:
+                i += 1
+        res = res[:-1]
     return res
 
 

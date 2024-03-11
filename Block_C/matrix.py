@@ -63,13 +63,20 @@ def decrypt(text, matr):
         otv += alp[i-1]
     return otv
 matr = []
-size = int(input("Введите размер КВАДРАТНОЙ матрицы: "))
-for i in range(size):
-    l = list(map(int, input(f'Введите {i+1} строку матрицы: ').split()))
-    if len(l) != size:
-        print("Неверный ввод!")
+while True:
+    size = int(input("Введите размер КВАДРАТНОЙ матрицы: "))
+    for i in range(size):
+        l = list(map(int, input(f'Введите {i+1} строку матрицы: ').split()))
+        if len(l) != size:
+            print("Неверный ввод!")
+        else:
+            matr.append(l)
+
+    if type(inv_matr(matr)) == str:
+        print("Неверная матрица")
+        matr = []
     else:
-        matr.append(l)
+        break
 
 task = int(input("Выберите режим (1- карточка, 2 - текст > 1000 символов):"))
 if task == 1:
