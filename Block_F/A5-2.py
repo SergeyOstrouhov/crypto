@@ -16,6 +16,7 @@ for i in text:
 key = [1] * 64
 print(text_reg)
 
+
 x = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 y = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 z = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -34,31 +35,36 @@ for i in range(64):
     # print(*y)
     # print(*z)
     # print("------------------------------------------")
-r4[6], r4[9], r4[13] = 0, 0, 0
+r4[6], r4[9], r4[13] = 1, 1, 1
 
 for i in range(99):
-    if r4[6]:
+    f = F(r4[6], r4[9], r4[13])
+    if r4[6] == f:
         x.append(x[1] ^ x[2] ^ x[5] ^ x.pop(0))
-    if r4[9]:
+    if r4[9] == f:
         y.append(y[1] ^ y.pop(0))
-    if r4[13]:
+    if r4[13] == f:
         z.append(z[1] ^ z[2] ^ z[15] ^ z.pop(0))
     r4.append(r4[5] ^ r4.pop(0))
 
 for i in range(114):
-    f1 = x[3] ^ x[4] ^ x[6]
-    f2 = y[6] ^ y[9] ^ y[13]
-    f3 = z[4] ^ z[6] ^ z[9]
+    f1 = F(x[3], x[4], x[6])
+    f2 = F(y[6], y[9], y[13])
+    f3 = F(z[4], z[6], z[9])
     gamma += str(x[0] ^ y[0] ^ z[0] ^ f1 ^ f2 ^ f3)
-    if r4[6]:
+    f = F(r4[6], r4[9], r4[13])
+    if r4[6] == f:
         x.append(x[1] ^ x[2] ^ x[5] ^ x.pop(0))
-    if r4[9]:
+    if r4[9] == f:
         y.append(y[1] ^ y.pop(0))
-    if r4[13]:
+    if r4[13] == f:
         z.append(z[1] ^ z[2] ^ z[15] ^ z.pop(0))
-    r4.append(r4[5] ^ r4.pop(0)) 
-print(x, y, z, r4)
-print("gamma:" + gamma)
+    r4.append(r4[5] ^ r4.pop(0))
+# for i in r4:
+#     print(i)
+print("gamma:"+ gamma)
+# for i in gamma:
+#     print(i)
 
 
 gamma = gamma*500
@@ -75,4 +81,5 @@ for i in text_dec_sub:
     text_dec_res += for_big_text[int(i, 2)-1]
 print(text_enc)
 print(text_dec_res)
-
+# for i in text_enc:
+#     print(i)
