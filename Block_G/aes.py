@@ -21,6 +21,16 @@ s_box = [
 ['a0', 'e0', '3b', '4d', 'ae', '2a', 'f5', 'b0', 'c8', 'eb', 'bb', '3c', '83', '53', '99', '61'],
 ['17', '2b', '04', '7e', 'ba', '77', 'd6', '26', 'e1', '69', '14', '63', '55', '21', '0c', '7d']
 ]
+
+
+def my_int(a):
+    for i in a:
+        if i in "abcdef":
+            return(int(a, 16))
+        
+    return(int(a))
+    
+
 def split_string_by_2(string):
 
 
@@ -64,9 +74,9 @@ for i in range(4):
     for j in range(4):
         state[j].append(open_text_mas[4 * i + j])
 print(state)
-def SybBytes(statef):
+def sub_bytes(statef):
     state_res = statef
-    print("STATEF",statef)
+    # print("STATEF",statef)
     for i in range(4):
         for j in range(4):
             byte = state_res[i][j]
@@ -74,10 +84,75 @@ def SybBytes(statef):
             state_res[i][j] = res
     return state_res
 
+def shift_row(statef):
+    res = statef
+    for i in range(len(res)):
+        for j in range(i):
+            p = res[i].pop(0)
+            res[i].append(p)
+    return res
 
 
-state_1 = SybBytes(state)
+def mix_columns_func(state):
+    """
+    Args:
+      state: Массив из 4 байтов, представляющий столбец в матрице состояния AES.
+    Returns:
+      Массив из 4 байтов, представляющий преобразованный столбец.
+    """
+    # Определим матрицу умножения в поле GF(2^8)
+    multiplication_matrix = [
+      [2, 3, 1, 1],
+      [1, 2, 3, 1],
+      [1, 1, 2, 3],
+      [3, 1, 1, 2],
+    ]   
+      # Преобразуем state в массив из 4 элементов
+    # state_as_matrix = [[my_int(state[0])], [my_int(state[1])], [my_int(state[2])], [my_int(state[3])]]
+    state_as_matrix = [[state[0]], [state[1]], [state[2]], [state[3]]]
+    print(state_as_matrix)
+    # Умножим state_as_matrix на multiplication_matrix
+    mixed_column = [[0 for _ in range(4)] for _ in range(4)]
+    for i in range(4):
+      for j in range(4):
+        for k in range(4):
+            print(state_as_matrix[k])
+            mixed_column[i][j] ^= multiplication_matrix[i][k] * state_as_matrix[k][j] 
+    # Преобразуем mixed_column обратно в массив из 4 байтов
+    return [mixed_column[0][0], mixed_column[1][0], mixed_column[2][0], mixed_column[3][0]]
+
+
+def transpose_matrix(matrix):
+  """
+  Функция транспонирования матрицы 4х4.
+  Args:
+    matrix: Массив из 4 списков, каждый из которых содержит 4 элемента.
+  Returns:
+    Массив из 4 списков, каждый из которых содержит 4 элемента.
+  """
+
+  transposed_matrix = [[0 for _ in range(4)] for _ in range(4)]
+  for i in range(4):
+    for j in range(4):
+      transposed_matrix[i][j] = matrix[j][i]
+
+  return transposed_matrix
+
+def mix_columns(statef):
+    matr_transposed = transpose_matrix(statef)
+    res = []
+    for i in matr_transposed:
+       res.append(mix_columns_func(i))
+    return matr_transposed(res)
+
+
+
+
+state_1 = sub_bytes(state)
 state_to_2=state_1
-state_2 = SybBytes(state_to_2)
+state_2 = sub_bytes(state_to_2)
+shift = shift_row(state_1)
 print("state 1", state_1)
 print("state 2",  state_2)
+print("shift", shift)
+print("trans", mix_columns(shift))

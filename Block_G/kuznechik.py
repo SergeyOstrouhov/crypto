@@ -1,7 +1,7 @@
 import pickle
 import binascii
 
-text = input("Введите текст поговорки: ")
+text = input("Введите текст: ")
 count = 0
 while len(text) % 16 != 0:
     text += "Я"
