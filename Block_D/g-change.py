@@ -185,24 +185,24 @@ def add_xor(a,b):
 
 # print(gamma_cipher("92def06b3c130a59",""))
 # Example 1
-# input_data_1 = bytearray.fromhex("fdb97531")
-# output_1 = t(input_data_1)
-# print("t(fdb97531) =", ''.join(format(x, '02x') for x in output_1))
+input_data_1 = bytearray.fromhex("fdb97531")
+output_1 = t(input_data_1)
+print("t(fdb97531) =", ''.join(format(x, '02x') for x in output_1))
 
-# # Example 2
-# input_data_2 = output_1
-# output_2 = t(input_data_2)
-# print("t(2a196f34) =", ''.join(format(x, '02x') for x in output_2))
+# Example 2
+input_data_2 = output_1
+output_2 = t(input_data_2)
+print("t(2a196f34) =", ''.join(format(x, '02x') for x in output_2))
 
-# # Example 3
-# input_data_3 = output_2
-# output_3 = t(input_data_3)
-# print("t(ebd9f03a) =", ''.join(format(x, '02x') for x in output_3))
+# Example 3
+input_data_3 = output_2
+output_3 = t(input_data_3)
+print("t(ebd9f03a) =", ''.join(format(x, '02x') for x in output_3))
 
-# # Example 4
-# input_data_4 = output_3
-# output_4 = t(input_data_4)
-# print("t(b039bb3d) =", ''.join(format(x, '02x') for x in output_4))
+# Example 4
+input_data_4 = output_3
+output_4 = t(input_data_4)
+print("t(b039bb3d) =", ''.join(format(x, '02x') for x in output_4))
 
 
 # print("Transformation g")
@@ -212,21 +212,21 @@ def g(k, a):
     GOST_Magma_g(bytearray.fromhex(k), bytearray.fromhex(a), result)
     return result
 
-# # Example 1
-# output_g_1 = g("87654321", "fedcba98")
-# print("g[87654321](fedcba98) =", ''.join(format(x, '02x') for x in output_g_1))
+# Example 1
+output_g_1 = g("87654321", "fedcba98")
+print("g[87654321](fedcba98) =", ''.join(format(x, '02x') for x in output_g_1))
 
-# # Example 2
-# output_g_2 = g("fdcbc20c", "87654321")
-# print("g[fdcbc20c](87654321) =", ''.join(format(x, '02x') for x in output_g_2))
+# Example 2
+output_g_2 = g("fdcbc20c", "87654321")
+print("g[fdcbc20c](87654321) =", ''.join(format(x, '02x') for x in output_g_2))
 
-# # Example 3
-# output_g_3 = g("7e791a4b", "fdcbc20c")
-# print("g[7e791a4b](fdcbc20c) =", ''.join(format(x, '02x') for x in output_g_3))
+# Example 3
+output_g_3 = g("7e791a4b", "fdcbc20c")
+print("g[7e791a4b](fdcbc20c) =", ''.join(format(x, '02x') for x in output_g_3))
 
-# # Example 4
-# output_g_4 = g("c76549ec", "7e791a4b")
-# print("g[c76549ec](7e791a4b) =", ''.join(format(x, '02x') for x in output_g_4))
+# Example 4
+output_g_4 = g("c76549ec", "7e791a4b")
+print("g[c76549ec](7e791a4b) =", ''.join(format(x, '02x') for x in output_g_4))
 
 
 # print("Key Expansion Algorithm")

@@ -19,7 +19,7 @@ def dfplayer1key(Y2, KU2, N, K1):
         print("Ключи совпали")
         return True
     elif  KU1 in [0,1] and KU2 in [0,1]:
-        print("Ключи не выработен")
+        print("Ключи не подходят")
         return True
     else:
         print("Ключи не совпали")
